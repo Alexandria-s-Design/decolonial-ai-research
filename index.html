@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Right Path | Decolonial AI Research Portfolio</title>
+    <title>The Right Path | Decolonial AI Research</title>
     <style>
         * {
             margin: 0;
@@ -11,11 +11,48 @@
             box-sizing: border-box;
         }
 
+        :root {
+            --bg-dark: #0a0a0f;
+            --bg-card: #1a1a2e;
+            --accent-gold: #f4a259;
+            --accent-cyan: #00d4ff;
+            --accent-purple: #b794f6;
+            --accent-orange: #ff6b35;
+            --accent-teal: #00e5cc;
+            --accent-magenta: #ff006e;
+            --text-primary: #ffffff;
+            --text-secondary: #b8b8c4;
+            --glow: rgba(0, 212, 255, 0.5);
+        }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            color: #1d1d1f;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
             overflow: hidden;
+            height: 100vh;
+            position: relative;
+        }
+
+        /* Geometric background pattern */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                linear-gradient(30deg, transparent 48%, rgba(0, 212, 255, 0.03) 49%, rgba(0, 212, 255, 0.03) 51%, transparent 52%),
+                linear-gradient(60deg, transparent 48%, rgba(244, 162, 89, 0.03) 49%, rgba(244, 162, 89, 0.03) 51%, transparent 52%);
+            background-size: 100px 100px;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .container {
+            position: relative;
+            z-index: 2;
             height: 100vh;
             display: flex;
             flex-direction: column;
@@ -23,33 +60,37 @@
 
         .header {
             text-align: center;
-            padding: 3rem 2rem 2rem;
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            padding: 2.5rem 2rem 2rem;
+            background: linear-gradient(180deg, rgba(26, 26, 46, 0.95) 0%, rgba(10, 10, 15, 0.7) 100%);
+            border-bottom: 2px solid var(--accent-cyan);
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.2);
         }
 
         .header h1 {
-            font-size: 3.5rem;
+            font-size: 3rem;
             font-weight: 700;
-            letter-spacing: -0.02em;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            letter-spacing: 0.05em;
+            margin-bottom: 0.75rem;
+            background: linear-gradient(135deg, var(--accent-cyan) 0%, var(--accent-purple) 50%, var(--accent-gold) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            position: relative;
+            text-shadow: 0 0 30px var(--glow);
         }
 
-        .header p {
-            font-size: 1.25rem;
-            font-weight: 400;
-            color: #6e6e73;
+        .header .subtitle {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
             max-width: 900px;
             margin: 0 auto;
-            line-height: 1.5;
+            line-height: 1.6;
+            font-weight: 300;
+            letter-spacing: 0.02em;
         }
 
-        .container {
+        .grid {
             flex: 1;
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -61,103 +102,330 @@
             width: 100%;
         }
 
-        .card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            border-radius: 20px;
+        .project-card {
+            background: linear-gradient(135deg, var(--bg-card) 0%, rgba(26, 26, 46, 0.6) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
             padding: 2rem;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 1px solid rgba(0, 0, 0, 0.05);
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
         }
 
-        .card::before {
+        .project-card::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--accent-color), var(--accent-color-light));
+            height: 3px;
+            background: var(--card-accent);
             transform: scaleX(0);
             transform-origin: left;
-            transition: transform 0.3s ease;
+            transition: transform 0.4s ease;
         }
 
-        .card:hover::before {
+        .project-card::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, var(--card-accent-glow) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--card-accent);
+            box-shadow: 0 0 40px var(--card-accent-glow);
+        }
+
+        .project-card:hover::before {
             transform: scaleX(1);
         }
 
-        .card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        .project-card:hover::after {
+            opacity: 0.15;
         }
 
-        .card-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .card h2 {
-            font-size: 1.5rem;
+        .project-card h2 {
+            font-size: 1.4rem;
             font-weight: 600;
-            margin-bottom: 0.75rem;
-            line-height: 1.3;
+            margin-bottom: 1rem;
+            letter-spacing: 0.02em;
+            color: var(--card-accent);
         }
 
-        .card p {
+        .project-card p {
             font-size: 0.95rem;
-            color: #6e6e73;
-            line-height: 1.5;
+            color: var(--text-secondary);
+            line-height: 1.6;
             margin-bottom: 1.5rem;
             flex-grow: 1;
         }
 
-        .card-link {
-            display: inline-flex;
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .learn-more {
+            color: var(--card-accent);
+            font-weight: 500;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .repo-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.3s ease;
+            display: flex;
             align-items: center;
             gap: 0.5rem;
-            color: var(--accent-color);
-            text-decoration: none;
-            font-weight: 500;
+        }
+
+        .repo-link:hover {
+            color: var(--card-accent);
+        }
+
+        /* Individual card colors */
+        .card-1 { --card-accent: var(--accent-cyan); --card-accent-glow: rgba(0, 212, 255, 0.3); }
+        .card-2 { --card-accent: var(--accent-gold); --card-accent-glow: rgba(244, 162, 89, 0.3); }
+        .card-3 { --card-accent: var(--accent-purple); --card-accent-glow: rgba(183, 148, 246, 0.3); }
+        .card-4 { --card-accent: var(--accent-orange); --card-accent-glow: rgba(255, 107, 53, 0.3); }
+        .card-5 { --card-accent: var(--accent-teal); --card-accent-glow: rgba(0, 229, 204, 0.3); }
+        .card-6 { --card-accent: var(--accent-magenta); --card-accent-glow: rgba(255, 0, 110, 0.3); }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 1000;
+            background: rgba(10, 10, 15, 0.95);
+            backdrop-filter: blur(10px);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, var(--bg-card) 0%, rgba(10, 10, 15, 0.95) 100%);
+            border: 2px solid var(--modal-accent);
+            border-radius: 12px;
+            max-width: 900px;
+            width: 90%;
+            max-height: 85vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 0 80px var(--modal-accent-glow);
+            animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .modal-header {
+            padding: 2.5rem 3rem 2rem;
+            border-bottom: 2px solid var(--modal-accent);
+            background: linear-gradient(180deg, rgba(26, 26, 46, 0.8) 0%, transparent 100%);
+        }
+
+        .modal-header h2 {
+            font-size: 2rem;
+            color: var(--modal-accent);
+            margin-bottom: 0.75rem;
+            letter-spacing: 0.03em;
+        }
+
+        .modal-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            font-weight: 300;
+        }
+
+        .modal-body {
+            padding: 2.5rem 3rem;
+        }
+
+        .modal-section {
+            margin-bottom: 2rem;
+        }
+
+        .modal-section h3 {
+            font-size: 1.3rem;
+            color: var(--modal-accent);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 600;
+        }
+
+        .modal-section p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .modal-section ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .modal-section li {
+            color: var(--text-secondary);
+            padding-left: 1.5rem;
+            margin-bottom: 0.75rem;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        .modal-section li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--modal-accent);
+            font-weight: bold;
+        }
+
+        .modal-footer {
+            padding: 1.5rem 3rem 2.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 0.875rem 2rem;
+            border: 2px solid var(--modal-accent);
+            background: transparent;
+            color: var(--modal-accent);
+            font-weight: 600;
             font-size: 0.95rem;
-            transition: gap 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 4px;
+            text-decoration: none;
+            display: inline-block;
         }
 
-        .card-link:hover {
-            gap: 0.75rem;
+        .btn:hover {
+            background: var(--modal-accent);
+            color: var(--bg-dark);
+            box-shadow: 0 0 20px var(--modal-accent-glow);
         }
 
-        .card-link::after {
-            content: '→';
-            font-size: 1.2rem;
+        .btn-secondary {
+            border-color: rgba(255, 255, 255, 0.3);
+            color: var(--text-secondary);
         }
 
-        /* Individual card accent colors */
-        .card:nth-child(1) { --accent-color: #667eea; --accent-color-light: #764ba2; }
-        .card:nth-child(2) { --accent-color: #f093fb; --accent-color-light: #f5576c; }
-        .card:nth-child(3) { --accent-color: #4facfe; --accent-color-light: #00f2fe; }
-        .card:nth-child(4) { --accent-color: #43e97b; --accent-color-light: #38f9d7; }
-        .card:nth-child(5) { --accent-color: #fa709a; --accent-color-light: #fee140; }
-        .card:nth-child(6) { --accent-color: #30cfd0; --accent-color-light: #330867; }
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.5);
+            color: var(--text-primary);
+            box-shadow: none;
+        }
 
-        .footer {
+        .close-modal {
+            position: absolute;
+            top: 1.5rem;
+            right: 2rem;
+            font-size: 2rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: color 0.3s ease;
+            background: none;
+            border: none;
+            line-height: 1;
+        }
+
+        .close-modal:hover {
+            color: var(--modal-accent);
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .stat-box {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1.25rem;
+            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
             text-align: center;
-            padding: 1rem;
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(20px);
-            border-top: 1px solid rgba(0, 0, 0, 0.05);
-            font-size: 0.875rem;
-            color: #6e6e73;
+        }
+
+        .stat-value {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--modal-accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Scrollbar Styling */
+        .modal-content::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .modal-content::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .modal-content::-webkit-scrollbar-thumb {
+            background: var(--modal-accent);
+            border-radius: 4px;
         }
 
         @media (max-width: 1200px) {
-            .container {
+            .grid {
                 grid-template-columns: repeat(2, 1fr);
                 grid-template-rows: repeat(3, 1fr);
             }
@@ -165,87 +433,458 @@
 
         @media (max-width: 768px) {
             .header h1 {
-                font-size: 2.5rem;
+                font-size: 2rem;
             }
-            .header p {
-                font-size: 1rem;
-            }
-            .container {
+            .grid {
                 grid-template-columns: 1fr;
-                grid-template-rows: auto;
                 overflow-y: auto;
-                padding: 1rem;
             }
             body {
                 overflow-y: auto;
+            }
+            .modal-content {
+                width: 95%;
+                max-height: 90vh;
+            }
+            .modal-header, .modal-body, .modal-footer {
+                padding-left: 1.5rem;
+                padding-right: 1.5rem;
+            }
+            .stat-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
             }
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>The Right Path</h1>
-        <p>A comprehensive research portfolio reimagining AI in education through decolonial, African-centered, and Indigenous frameworks</p>
-    </div>
-
     <div class="container">
-        <div class="card">
-            <div>
-                <div class="card-icon">📚</div>
-                <h2>Literature Review</h2>
-                <p>A systematic PRISMA-compliant review examining 150+ sources on decolonial AI, critical pedagogy, and educational technology through culturally responsive lenses.</p>
-            </div>
-            <a href="https://github.com/Alexandria-s-Design/decolonial-ai-literature-review" class="card-link" target="_blank">Explore Repository</a>
+        <div class="header">
+            <h1>The Right Path</h1>
+            <p class="subtitle">A Decolonial AI Research Portfolio: Reimagining Educational Technology through African-Centered, Indigenous, and Black Radical Frameworks</p>
         </div>
 
-        <div class="card">
-            <div>
-                <div class="card-icon">🌍</div>
+        <div class="grid">
+            <div class="project-card card-1" onclick="openModal('modal1')">
+                <div>
+                    <h2>Decolonial AI Literature Review</h2>
+                    <p>Systematic PRISMA-compliant review examining 150+ sources on decolonial AI and critical pedagogy</p>
+                </div>
+                <div class="card-footer">
+                    <span class="learn-more">Learn More</span>
+                    <a href="https://github.com/Alexandria-s-Design/decolonial-ai-literature-review" class="repo-link" onclick="event.stopPropagation()" target="_blank">
+                        <span>Repository</span>
+                        <span>→</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-card card-2" onclick="openModal('modal2')">
+                <div>
+                    <h2>The Right Path Framework</h2>
+                    <p>Original theoretical framework grounded in five pillars of African-centered epistemologies</p>
+                </div>
+                <div class="card-footer">
+                    <span class="learn-more">Learn More</span>
+                    <a href="https://github.com/Alexandria-s-Design/the-right-path-framework" class="repo-link" onclick="event.stopPropagation()" target="_blank">
+                        <span>Repository</span>
+                        <span>→</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-card card-3" onclick="openModal('modal3')">
+                <div>
+                    <h2>AI Flourishing Readiness Index</h2>
+                    <p>Validated 80-point measurement instrument assessing institutional readiness across 5 domains</p>
+                </div>
+                <div class="card-footer">
+                    <span class="learn-more">Learn More</span>
+                    <a href="https://github.com/Alexandria-s-Design/ai-flourishing-readiness-index" class="repo-link" onclick="event.stopPropagation()" target="_blank">
+                        <span>Repository</span>
+                        <span>→</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-card card-4" onclick="openModal('modal4')">
+                <div>
+                    <h2>Practitioner Toolkit</h2>
+                    <p>Actionable implementation guides with vendor audit frameworks and concrete strategies</p>
+                </div>
+                <div class="card-footer">
+                    <span class="learn-more">Learn More</span>
+                    <a href="https://github.com/Alexandria-s-Design/decolonial-ai-practitioner-toolkit" class="repo-link" onclick="event.stopPropagation()" target="_blank">
+                        <span>Repository</span>
+                        <span>→</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-card card-5" onclick="openModal('modal5')">
+                <div>
+                    <h2>African & Indigenous Pedagogies</h2>
+                    <p>Deep theoretical explorations of Ubuntu, Sankofa, and Indigenous ways of knowing</p>
+                </div>
+                <div class="card-footer">
+                    <span class="learn-more">Learn More</span>
+                    <a href="https://github.com/Alexandria-s-Design/african-indigenous-pedagogies" class="repo-link" onclick="event.stopPropagation()" target="_blank">
+                        <span>Repository</span>
+                        <span>→</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-card card-6" onclick="openModal('modal6')">
+                <div>
+                    <h2>NSF Grant Proposal</h2>
+                    <p>Comprehensive 3-year research program to develop and validate The Right Path at scale</p>
+                </div>
+                <div class="card-footer">
+                    <span class="learn-more">Learn More</span>
+                    <a href="https://github.com/Alexandria-s-Design/nsf-grant-decolonial-ai" class="repo-link" onclick="event.stopPropagation()" target="_blank">
+                        <span>Repository</span>
+                        <span>→</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <div id="modal1" class="modal" style="--modal-accent: var(--accent-cyan); --modal-accent-glow: rgba(0, 212, 255, 0.4);">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal('modal1')">&times;</button>
+            <div class="modal-header">
+                <h2>Decolonial AI Literature Review</h2>
+                <p class="modal-subtitle">Toward Decolonial Educational AI: A Systematic Review</p>
+            </div>
+            <div class="modal-body">
+                <div class="modal-section">
+                    <h3>Research Purpose</h3>
+                    <p>This PRISMA-compliant systematic literature review examines theoretical frameworks, empirical evidence, and practical applications for decolonial approaches to AI in education grounded in African, Indigenous, and Black radical pedagogical traditions.</p>
+                </div>
+                <div class="modal-section">
+                    <h3>Key Research Questions</h3>
+                    <ul>
+                        <li>How do African-centered pedagogies inform educational AI design?</li>
+                        <li>What Indigenous West African epistemologies offer alternative frameworks for AI systems?</li>
+                        <li>How does critical pedagogy and Black radical tradition shape decolonial AI praxis?</li>
+                        <li>What measurement frameworks exist that challenge colonial logics in educational AI?</li>
+                    </ul>
+                </div>
+                <div class="modal-section">
+                    <h3>Project Overview</h3>
+                    <div class="stat-grid">
+                        <div class="stat-box">
+                            <div class="stat-value">150+</div>
+                            <div class="stat-label">Sources</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-value">30-45</div>
+                            <div class="stat-label">Pages</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-value">26</div>
+                            <div class="stat-label">Weeks</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-section">
+                    <h3>Target Impact</h3>
+                    <p>This review will establish the theoretical foundation for The Right Path framework, synthesizing diverse scholarly traditions to articulate a coherent vision for decolonial educational AI that centers communal flourishing and cultural sovereignty.</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="https://github.com/Alexandria-s-Design/decolonial-ai-literature-review" target="_blank" class="btn">View Repository</a>
+                <button class="btn btn-secondary" onclick="closeModal('modal1')">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal2" class="modal" style="--modal-accent: var(--accent-gold); --modal-accent-glow: rgba(244, 162, 89, 0.4);">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal('modal2')">&times;</button>
+            <div class="modal-header">
                 <h2>The Right Path Framework</h2>
-                <p>An original theoretical framework grounded in African-centered epistemologies, offering a transformative vision for AI that centers communal flourishing and cultural sovereignty.</p>
+                <p class="modal-subtitle">A Decolonial Framework for Educational AI</p>
             </div>
-            <a href="https://github.com/Alexandria-s-Design/the-right-path-framework" class="card-link" target="_blank">Explore Repository</a>
+            <div class="modal-body">
+                <div class="modal-section">
+                    <h3>Framework Vision</h3>
+                    <p>The Right Path presents an original conceptual framework that reimagines educational AI systems through lenses grounded in African, Indigenous, and Black radical pedagogies rather than dominant Western paradigms.</p>
+                </div>
+                <div class="modal-section">
+                    <h3>Five Pillars</h3>
+                    <ul>
+                        <li><strong>Epistemic Grounding & Ancestral Knowledge:</strong> Sankofa, African fractals, oral tradition as epistemic technology</li>
+                        <li><strong>Relational Ethics & Collective Intelligence:</strong> Ubuntu philosophy, communal knowledge building, collaborative AI design</li>
+                        <li><strong>Critical Consciousness & Structural Literacy:</strong> Conscientização, algorithmic literacy, awareness of algorithmic bias</li>
+                        <li><strong>Cultural Continuity, Creativity & Expressive Freedom:</strong> Culturally Sustaining Pedagogy, Black expressive culture, creative resistance</li>
+                        <li><strong>Liberation, Agency & Human Flourishing:</strong> Abolitionist teaching, economic sovereignty, futures orientation</li>
+                    </ul>
+                </div>
+                <div class="modal-section">
+                    <h3>Three-Layer Architecture</h3>
+                    <p>The framework operates across three interconnected layers: <strong>Pedagogical</strong> (teaching and learning practices), <strong>Technological</strong> (AI system design and functionality), and <strong>Governance</strong> (policy, accountability, and oversight).</p>
+                </div>
+                <div class="modal-section">
+                    <h3>Project Metrics</h3>
+                    <div class="stat-grid">
+                        <div class="stat-box">
+                            <div class="stat-value">5</div>
+                            <div class="stat-label">Pillars</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-value">3</div>
+                            <div class="stat-label">Layers</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-value">20</div>
+                            <div class="stat-label">Weeks</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="https://github.com/Alexandria-s-Design/the-right-path-framework" target="_blank" class="btn">View Repository</a>
+                <button class="btn btn-secondary" onclick="closeModal('modal2')">Close</button>
+            </div>
         </div>
+    </div>
 
-        <div class="card">
-            <div>
-                <div class="card-icon">📊</div>
+    <div id="modal3" class="modal" style="--modal-accent: var(--accent-purple); --modal-accent-glow: rgba(183, 148, 246, 0.4);">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal('modal3')">&times;</button>
+            <div class="modal-header">
                 <h2>AI Flourishing Readiness Index</h2>
-                <p>A validated 80-point measurement instrument assessing institutional readiness across 5 domains: Infrastructure, Pedagogy, Ethics, Community, and Cultural Responsiveness.</p>
+                <p class="modal-subtitle">Measurement Instrument for Decolonial AI Assessment</p>
             </div>
-            <a href="https://github.com/Alexandria-s-Design/ai-flourishing-readiness-index" class="card-link" target="_blank">Explore Repository</a>
-        </div>
-
-        <div class="card">
-            <div>
-                <div class="card-icon">🛠️</div>
-                <h2>Practitioner Toolkit</h2>
-                <p>Actionable implementation guides with vendor audit frameworks, decision trees, and concrete strategies for educators to deploy culturally responsive AI systems.</p>
+            <div class="modal-body">
+                <div class="modal-section">
+                    <h3>Instrument Purpose</h3>
+                    <p>A psychometrically validated 80-point assessment tool designed to measure institutional readiness for implementing decolonial educational AI across five critical domains aligned with The Right Path framework.</p>
+                </div>
+                <div class="modal-section">
+                    <h3>Five Assessment Domains</h3>
+                    <ul>
+                        <li><strong>Epistemic Grounding (16 pts):</strong> Sankofa integration, African computational thinking, oral tradition technologies</li>
+                        <li><strong>Relational Ethics (16 pts):</strong> Ubuntu philosophy, communal knowledge building, collaborative AI design</li>
+                        <li><strong>Critical Consciousness (16 pts):</strong> Algorithmic literacy, awareness of bias, structural analysis</li>
+                        <li><strong>Cultural Continuity (16 pts):</strong> Culturally Sustaining Pedagogy practices, Black expressive culture, creative resistance</li>
+                        <li><strong>Liberation & Flourishing (16 pts):</strong> Abolitionist teaching, economic sovereignty, futures orientation</li>
+                    </ul>
+                </div>
+                <div class="modal-section">
+                    <h3>Readiness Levels</h3>
+                    <p><strong>0-20:</strong> Not Present | <strong>21-40:</strong> Emerging | <strong>41-60:</strong> Developing | <strong>61-80:</strong> Transformational</p>
+                </div>
+                <div class="modal-section">
+                    <h3>Validation Plan</h3>
+                    <div class="stat-grid">
+                        <div class="stat-box">
+                            <div class="stat-value">80</div>
+                            <div class="stat-label">Total Points</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-value">5</div>
+                            <div class="stat-label">Domains</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-value">24</div>
+                            <div class="stat-label">Weeks</div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <a href="https://github.com/Alexandria-s-Design/decolonial-ai-practitioner-toolkit" class="card-link" target="_blank">Explore Repository</a>
+            <div class="modal-footer">
+                <a href="https://github.com/Alexandria-s-Design/ai-flourishing-readiness-index" target="_blank" class="btn">View Repository</a>
+                <button class="btn btn-secondary" onclick="closeModal('modal3')">Close</button>
+            </div>
         </div>
+    </div>
 
-        <div class="card">
-            <div>
-                <div class="card-icon">🌱</div>
+    <div id="modal4" class="modal" style="--modal-accent: var(--accent-orange); --modal-accent-glow: rgba(255, 107, 53, 0.4);">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal('modal4')">&times;</button>
+            <div class="modal-header">
+                <h2>Decolonial AI Practitioner Toolkit</h2>
+                <p class="modal-subtitle">Implementation Tools and Vendor Audit Framework</p>
+            </div>
+            <div class="modal-body">
+                <div class="modal-section">
+                    <h3>Purpose</h3>
+                    <p>Provides K-12 educators, administrators, and EdTech leaders with practical, actionable tools for implementing decolonial AI frameworks in their schools and districts, including a comprehensive evaluation of 50-100 educational AI vendors.</p>
+                </div>
+                <div class="modal-section">
+                    <h3>Five Implementation Phases</h3>
+                    <ul>
+                        <li><strong>Planning & Preparation:</strong> Readiness assessment, stakeholder mapping, vision statement development</li>
+                        <li><strong>Team Formation:</strong> Committee structure, role definition, professional development planning</li>
+                        <li><strong>Pilot Implementation:</strong> Small-scale testing, data collection, iterative feedback loops</li>
+                        <li><strong>District-Wide Rollout:</strong> Communication strategy, policy integration, resource allocation</li>
+                        <li><strong>Sustainability:</strong> Continuous improvement, ongoing vendor evaluation, knowledge management</li>
+                    </ul>
+                </div>
+                <div class="modal-section">
+                    <h3>Vendor Audit Framework</h3>
+                    <p>Comprehensive 100-point evaluation system assessing vendors across five criteria: <strong>Functionality & Features (30 pts)</strong>, <strong>Cost & Value (20 pts)</strong>, <strong>Support & Training (20 pts)</strong>, <strong>Integration & Interoperability (15 pts)</strong>, and <strong>Equity & Accessibility (15 pts)</strong>.</p>
+                </div>
+                <div class="modal-section">
+                    <h3>Deliverables</h3>
+                    <div class="stat-grid">
+                        <div class="stat-box">
+                            <div class="stat-value">50-100</div>
+                            <div class="stat-label">Vendors</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-value">5</div>
+                            <div class="stat-label">Phases</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-value">20</div>
+                            <div class="stat-label">Weeks</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="https://github.com/Alexandria-s-Design/decolonial-ai-practitioner-toolkit" target="_blank" class="btn">View Repository</a>
+                <button class="btn btn-secondary" onclick="closeModal('modal4')">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal5" class="modal" style="--modal-accent: var(--accent-teal); --modal-accent-glow: rgba(0, 229, 204, 0.4);">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal('modal5')">&times;</button>
+            <div class="modal-header">
                 <h2>African & Indigenous Pedagogies</h2>
-                <p>Deep theoretical explorations of Ubuntu, Sankofa, Ntu, and Indigenous ways of knowing, articulating how these frameworks challenge dominant AI paradigms.</p>
+                <p class="modal-subtitle">Deep Theoretical Foundations Series</p>
             </div>
-            <a href="https://github.com/Alexandria-s-Design/african-indigenous-pedagogies" class="card-link" target="_blank">Explore Repository</a>
+            <div class="modal-body">
+                <div class="modal-section">
+                    <h3>Series Vision</h3>
+                    <p>A collection of five focused theoretical articles that provide deep philosophical and epistemological grounding for The Right Path framework, drawing from African-centered, Indigenous West African, and Black radical pedagogical traditions.</p>
+                </div>
+                <div class="modal-section">
+                    <h3>Five Article Series</h3>
+                    <ul>
+                        <li><strong>Culturally Relevant & Sustaining Pedagogy:</strong> Ladson-Billings, Paris, Alim, Muhammad—How do CRP/CSP/HRL frameworks inform decolonial AI design?</li>
+                        <li><strong>Afrocentricity & African-Centered Education:</strong> Asante, Hilliard, King, Woodson—What role does epistemic sovereignty play in educational AI?</li>
+                        <li><strong>Indigenous West African Epistemologies:</strong> Sankofa, Ubuntu, Ifá, African Fractals—How do Indigenous knowledge systems reshape AI architectures?</li>
+                        <li><strong>Critical Pedagogy & Liberation:</strong> Freire, hooks, Giroux, Black Radical Tradition—What does critical consciousness mean in the age of AI?</li>
+                        <li><strong>Decolonial AI Scholarship:</strong> Birhane, Benjamin, Noble, Browne, Mohamed—How do we operationalize decolonial AI in educational contexts?</li>
+                    </ul>
+                </div>
+                <div class="modal-section">
+                    <h3>Scholarly Impact</h3>
+                    <p>Each article engages deeply with primary sources, offers critical analysis of strengths and limitations, and makes explicit connections to educational AI applications, advancing both theoretical understanding and practical implementation.</p>
+                </div>
+                <div class="modal-section">
+                    <h3>Series Scope</h3>
+                    <div class="stat-grid">
+                        <div class="stat-box">
+                            <div class="stat-value">5</div>
+                            <div class="stat-label">Articles</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-value">25-35</div>
+                            <div class="stat-label">Pages Each</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-value">24</div>
+                            <div class="stat-label">Weeks Each</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="https://github.com/Alexandria-s-Design/african-indigenous-pedagogies" target="_blank" class="btn">View Repository</a>
+                <button class="btn btn-secondary" onclick="closeModal('modal5')">Close</button>
+            </div>
         </div>
+    </div>
 
-        <div class="card">
-            <div>
-                <div class="card-icon">💰</div>
+    <div id="modal6" class="modal" style="--modal-accent: var(--accent-magenta); --modal-accent-glow: rgba(255, 0, 110, 0.4);">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal('modal6')">&times;</button>
+            <div class="modal-header">
                 <h2>NSF Grant Proposal</h2>
-                <p>Comprehensive grant application materials aligned to NSF guidelines, proposing a 3-year research program to develop and validate The Right Path framework at scale.</p>
+                <p class="modal-subtitle">Decolonial AI for Educational Equity</p>
             </div>
-            <a href="https://github.com/Alexandria-s-Design/nsf-grant-decolonial-ai" class="card-link" target="_blank">Explore Repository</a>
+            <div class="modal-body">
+                <div class="modal-section">
+                    <h3>Grant Vision</h3>
+                    <p>A comprehensive 3-5 year research program to develop, implement, and validate The Right Path decolonial AI framework across diverse K-12 educational settings, promoting equity, human flourishing, and culturally sustaining learning in the Fourth Industrial Revolution.</p>
+                </div>
+                <div class="modal-section">
+                    <h3>Five Specific Aims</h3>
+                    <ul>
+                        <li><strong>Aim 1:</strong> Refine and validate The Right Path framework through participatory design with educators and communities</li>
+                        <li><strong>Aim 2:</strong> Develop and pilot The Right Path AI & Human Flourishing Readiness Index for institutional assessment</li>
+                        <li><strong>Aim 3:</strong> Create comprehensive practitioner toolkit with evaluation of 50-100 educational AI vendors</li>
+                        <li><strong>Aim 4:</strong> Conduct multi-site implementation study across diverse educational contexts</li>
+                        <li><strong>Aim 5:</strong> Disseminate findings through publications, professional development, and policy engagement</li>
+                    </ul>
+                </div>
+                <div class="modal-section">
+                    <h3>Broader Impacts</h3>
+                    <p>This research program will advance NSF's goals for broadening participation in STEM, advancing discovery while promoting teaching, training, and learning, and enhancing the well-being of individuals and society by centering equity in educational AI systems.</p>
+                </div>
+                <div class="modal-section">
+                    <h3>Program Scope</h3>
+                    <div class="stat-grid">
+                        <div class="stat-box">
+                            <div class="stat-value">3-5</div>
+                            <div class="stat-label">Years</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-value">5</div>
+                            <div class="stat-label">Aims</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-value">Multi-Site</div>
+                            <div class="stat-label">Implementation</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="https://github.com/Alexandria-s-Design/nsf-grant-decolonial-ai" target="_blank" class="btn">View Repository</a>
+                <button class="btn btn-secondary" onclick="closeModal('modal6')">Close</button>
+            </div>
         </div>
     </div>
 
-    <div class="footer">
-        <p>All repositories licensed under CC BY 4.0 | Alexandria's Design © 2025</p>
-    </div>
+    <script>
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Close modal on background click
+        document.querySelectorAll('.modal').forEach(modal => {
+            modal.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeModal(this.id);
+                }
+            });
+        });
+
+        // Close modal on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.modal.active').forEach(modal => {
+                    closeModal(modal.id);
+                });
+            }
+        });
+    </script>
 </body>
 </html>
