@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Right Path | Decolonial AI Research Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #1d1d1f;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            text-align: center;
+            padding: 3rem 2rem 2rem;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .header h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            font-size: 1.25rem;
+            font-weight: 400;
+            color: #6e6e73;
+            max-width: 900px;
+            margin: 0 auto;
+            line-height: 1.5;
+        }
+
+        .container {
+            flex: 1;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            gap: 1.5rem;
+            padding: 2rem;
+            max-width: 1600px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-color), var(--accent-color-light));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .card h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            line-height: 1.3;
+        }
+
+        .card p {
+            font-size: 0.95rem;
+            color: #6e6e73;
+            line-height: 1.5;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .card-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: gap 0.3s ease;
+        }
+
+        .card-link:hover {
+            gap: 0.75rem;
+        }
+
+        .card-link::after {
+            content: '→';
+            font-size: 1.2rem;
+        }
+
+        /* Individual card accent colors */
+        .card:nth-child(1) { --accent-color: #667eea; --accent-color-light: #764ba2; }
+        .card:nth-child(2) { --accent-color: #f093fb; --accent-color-light: #f5576c; }
+        .card:nth-child(3) { --accent-color: #4facfe; --accent-color-light: #00f2fe; }
+        .card:nth-child(4) { --accent-color: #43e97b; --accent-color-light: #38f9d7; }
+        .card:nth-child(5) { --accent-color: #fa709a; --accent-color-light: #fee140; }
+        .card:nth-child(6) { --accent-color: #30cfd0; --accent-color-light: #330867; }
+
+        .footer {
+            text-align: center;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+            font-size: 0.875rem;
+            color: #6e6e73;
+        }
+
+        @media (max-width: 1200px) {
+            .container {
+                grid-template-columns: repeat(2, 1fr);
+                grid-template-rows: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5rem;
+            }
+            .header p {
+                font-size: 1rem;
+            }
+            .container {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto;
+                overflow-y: auto;
+                padding: 1rem;
+            }
+            body {
+                overflow-y: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>The Right Path</h1>
+        <p>A comprehensive research portfolio reimagining AI in education through decolonial, African-centered, and Indigenous frameworks</p>
+    </div>
+
+    <div class="container">
+        <div class="card">
+            <div>
+                <div class="card-icon">📚</div>
+                <h2>Literature Review</h2>
+                <p>A systematic PRISMA-compliant review examining 150+ sources on decolonial AI, critical pedagogy, and educational technology through culturally responsive lenses.</p>
+            </div>
+            <a href="https://github.com/Alexandria-s-Design/decolonial-ai-literature-review" class="card-link" target="_blank">Explore Repository</a>
+        </div>
+
+        <div class="card">
+            <div>
+                <div class="card-icon">🌍</div>
+                <h2>The Right Path Framework</h2>
+                <p>An original theoretical framework grounded in African-centered epistemologies, offering a transformative vision for AI that centers communal flourishing and cultural sovereignty.</p>
+            </div>
+            <a href="https://github.com/Alexandria-s-Design/the-right-path-framework" class="card-link" target="_blank">Explore Repository</a>
+        </div>
+
+        <div class="card">
+            <div>
+                <div class="card-icon">📊</div>
+                <h2>AI Flourishing Readiness Index</h2>
+                <p>A validated 80-point measurement instrument assessing institutional readiness across 5 domains: Infrastructure, Pedagogy, Ethics, Community, and Cultural Responsiveness.</p>
+            </div>
+            <a href="https://github.com/Alexandria-s-Design/ai-flourishing-readiness-index" class="card-link" target="_blank">Explore Repository</a>
+        </div>
+
+        <div class="card">
+            <div>
+                <div class="card-icon">🛠️</div>
+                <h2>Practitioner Toolkit</h2>
+                <p>Actionable implementation guides with vendor audit frameworks, decision trees, and concrete strategies for educators to deploy culturally responsive AI systems.</p>
+            </div>
+            <a href="https://github.com/Alexandria-s-Design/decolonial-ai-practitioner-toolkit" class="card-link" target="_blank">Explore Repository</a>
+        </div>
+
+        <div class="card">
+            <div>
+                <div class="card-icon">🌱</div>
+                <h2>African & Indigenous Pedagogies</h2>
+                <p>Deep theoretical explorations of Ubuntu, Sankofa, Ntu, and Indigenous ways of knowing, articulating how these frameworks challenge dominant AI paradigms.</p>
+            </div>
+            <a href="https://github.com/Alexandria-s-Design/african-indigenous-pedagogies" class="card-link" target="_blank">Explore Repository</a>
+        </div>
+
+        <div class="card">
+            <div>
+                <div class="card-icon">💰</div>
+                <h2>NSF Grant Proposal</h2>
+                <p>Comprehensive grant application materials aligned to NSF guidelines, proposing a 3-year research program to develop and validate The Right Path framework at scale.</p>
+            </div>
+            <a href="https://github.com/Alexandria-s-Design/nsf-grant-decolonial-ai" class="card-link" target="_blank">Explore Repository</a>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>All repositories licensed under CC BY 4.0 | Alexandria's Design © 2025</p>
+    </div>
+</body>
+</html>
