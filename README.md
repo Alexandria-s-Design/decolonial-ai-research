@@ -91,3 +91,11 @@ This landing page is part of The Right Path research portfolio.
 **Last Updated**: November 19, 2025 | **Version**: 1.0
 
 *"The Right Path is not about rejecting technology, but about reclaiming our humanity within it."*
+
+## Status
+Active
+
+## TODO
+- [ ] Continue literature review
+- [ ] Develop framework documentation
+- [ ] Prepare for publication
